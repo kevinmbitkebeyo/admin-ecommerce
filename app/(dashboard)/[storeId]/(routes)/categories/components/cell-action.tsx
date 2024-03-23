@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 
 import { AlertModal } from "@/components/ui/modals/alert-modal";
 
-import { BillboardColumn } from "./columns";
+import { CategoyColumn } from "./columns";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -20,7 +20,7 @@ import {
 } from "@radix-ui/react-dropdown-menu";
 
 interface CellActionProps {
-  data: BillboardColumn;
+  data: CategoyColumn;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
@@ -29,15 +29,15 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const onConfirm = async () => {
+  const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/${params.storeId}/billboards/${data.id}`);
-      toast.success("Billboard deleted.");
+      await axios.delete(`/api/${params.storeId}/categories/${data.id}`);
+      toast.success("Category deleted.");
       router.refresh();
     } catch (error) {
       toast.error(
-        "Make sure you removed all categories using this billboard first."
+        "Make sure you removed all products using this categories first."
       );
     } finally {
       setOpen(false);
@@ -47,7 +47,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast.success("Billboard ID copied to clipboard.");
+    toast.success("Category ID copied to clipboard.");
   };
 
   return (
@@ -55,7 +55,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
       <AlertModal
         isOpen={open}
         onClose={() => setOpen(false)}
-        onConfirm={onConfirm}
+        onConfirm={onDelete}
         loading={loading}
       />
       <DropdownMenu>
@@ -73,7 +73,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           <DropdownMenuItem
             className="flex"
             onClick={() =>
-              router.push(`/${params.storeId}/billboards/${data.id}`)
+              router.push(`/${params.storeId}/categories/${data.id}`)
             }
           >
             <Edit className="mr-2 h-4 w-4" /> Update
