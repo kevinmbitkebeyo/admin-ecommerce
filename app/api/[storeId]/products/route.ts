@@ -31,7 +31,7 @@ export async function POST(
       return new NextResponse("Name is required", { status: 400 });
     }
 
-    if (!images || images.length) {
+    if (!images || !images.length) {
       return new NextResponse("Images is required", { status: 400 });
     }
 
@@ -47,7 +47,6 @@ export async function POST(
     if (!sizeId) {
       return new NextResponse("Size Id is required", { status: 400 });
     }
-    
 
     if (!params.storeId) {
       return new NextResponse("Store id is required", { status: 400 });
@@ -69,17 +68,16 @@ export async function POST(
         name,
         price,
         isFeatured,
-        isArchived,categoryId,
+        isArchived,
+        categoryId,
         colorId,
         sizeId,
         storeId: params.storeId,
-        images:{
-          createMany:{
-            data:[
-              ...images.map((image:{url:string})=>image)
-            ]
-          }
-        }
+        images: {
+          createMany: {
+            data: [...images.map((image: { url: string }) => image)],
+          },
+        },
       },
     });
 
@@ -95,13 +93,12 @@ export async function GET(
   { params }: { params: { storeId: string } }
 ) {
   try {
-    const {searchParams} = new URL(req.url)
+    const { searchParams } = new URL(req.url);
 
-    const categoryId = searchParams.get("categoryId") || undefined
-    const colorId = searchParams.get("colorId") || undefined
-    const sizeId = searchParams.get("sizeId") || undefined
-    const isFeatured = searchParams.get("isFeatured")
-    
+    const categoryId = searchParams.get("categoryId") || undefined;
+    const colorId = searchParams.get("colorId") || undefined;
+    const sizeId = searchParams.get("sizeId") || undefined;
+    const isFeatured = searchParams.get("isFeatured");
 
     if (!params.storeId) {
       return new NextResponse("Store id is required", { status: 400 });
@@ -114,17 +111,17 @@ export async function GET(
         colorId,
         sizeId,
         isFeatured: isFeatured ? true : undefined,
-        isArchived: false
+        isArchived: false,
       },
-      include:{
-        images:true,
-        category:true,
+      include: {
+        images: true,
+        category: true,
         color: true,
-        size: true
+        size: true,
       },
-      orderBy:{
-        createdAt: 'desc'
-      }
+      orderBy: {
+        createdAt: "desc",
+      },
     });
 
     return NextResponse.json(products);

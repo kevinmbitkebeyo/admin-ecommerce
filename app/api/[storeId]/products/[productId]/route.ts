@@ -97,7 +97,7 @@ export async function PATCH(
       return new NextResponse("Name is required", { status: 400 });
     }
 
-    if (!images || images.length) {
+    if (!images || !images.length) {
       return new NextResponse("Images is required", { status: 400 });
     }
 
