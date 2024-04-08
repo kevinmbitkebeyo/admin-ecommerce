@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/form"
 import { Separator } from "@/components/ui/separator"
 import { Heading } from "@/components/ui/heading"
-import { AlertModal } from "@/components/ui/modals/alert-modal"
+import { AlertModal } from "@/components/modals/alert-modal"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import ImageUpload from "@/components/ui/image-upload"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -94,11 +94,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       } else {
         await axios.post(`/api/${params.storeId}/products`, data);
       }
+      router.refresh();
       router.push(`/${params.storeId}/products`);
       toast.success(toastMessage);
-      router.refresh();
     } catch (error: any) {
-      toast.error('Something went wrong.' +error);
+      toast.error('Something went wrong.');
     } finally {
       setLoading(false);
     }

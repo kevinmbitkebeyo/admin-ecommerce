@@ -19,7 +19,7 @@ export async function POST(
     }
 
     if (!name) {
-      return new NextResponse("name is required", { status: 400 });
+      return new NextResponse("Name is required", { status: 400 });
     }
 
     if (!value) {
@@ -33,7 +33,7 @@ export async function POST(
     const storeByUserId = await prismadb.store.findFirst({
       where: {
         id: params.storeId,
-        userId,
+        userId
       }
     });
 
@@ -45,7 +45,7 @@ export async function POST(
       data: {
         name,
         value,
-        storeId: params.storeId,
+        storeId: params.storeId
       }
     });
   

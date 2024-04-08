@@ -22,8 +22,7 @@ import {
 } from "@/components/ui/form"
 import { Separator } from "@/components/ui/separator"
 import { Heading } from "@/components/ui/heading"
-import { AlertModal } from "@/components/ui/modals/alert-modal"
-import ImageUpload from "@/components/ui/image-upload"
+import { AlertModal } from "@/components/modals/alert-modal"
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -53,8 +52,7 @@ export const SizeForm: React.FC<SizeFormProps> = ({
   const form = useForm<SizeFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
-      name: '',
-      value: ''
+      name: ''
     }
   });
 
@@ -66,9 +64,9 @@ export const SizeForm: React.FC<SizeFormProps> = ({
       } else {
         await axios.post(`/api/${params.storeId}/sizes`, data);
       }
+      router.refresh();
       router.push(`/${params.storeId}/sizes`);
       toast.success(toastMessage);
-      router.refresh();
     } catch (error: any) {
       toast.error('Something went wrong.');
     } finally {
@@ -115,7 +113,6 @@ export const SizeForm: React.FC<SizeFormProps> = ({
       <Separator />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
-        
           <div className="md:grid md:grid-cols-3 gap-8">
             <FormField
               control={form.control}

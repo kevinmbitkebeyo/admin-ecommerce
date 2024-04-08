@@ -7,7 +7,7 @@ import { CellAction } from "./cell-action"
 export type SizeColumn = {
   id: string
   name: string;
-  value:string
+  value: string;
   createdAt: string;
 }
 

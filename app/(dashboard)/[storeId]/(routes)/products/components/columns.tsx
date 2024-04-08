@@ -7,16 +7,16 @@ import { CellAction } from "./cell-action"
 export type ProductColumn = {
   id: string
   name: string;
-  price:string;
-  size:string;
+  price: string;
   category: string;
-  color:string;
-  isFeatured:boolean;
-  isArchived:boolean
+  size: string;
+  color: string;
   createdAt: string;
+  isFeatured: boolean;
+  isArchived: boolean;
 }
 
-export const columns: ColumnDef<BillboardColumn>[] = [
+export const columns: ColumnDef<ProductColumn>[] = [
   {
     accessorKey: "name",
     header: "Name",
@@ -44,10 +44,10 @@ export const columns: ColumnDef<BillboardColumn>[] = [
   {
     accessorKey: "color",
     header: "Color",
-    cell: ({row})=>(
+    cell: ({ row }) => (
       <div className="flex items-center gap-x-2">
-{row.original.color}
-<div className="h-6 w-6 rounded-full border" style={{ backgroundColor:row.original.color }}/>
+        {row.original.color}
+        <div className="h-6 w-6 rounded-full border" style={{ backgroundColor: row.original.color }} />
       </div>
     )
   },

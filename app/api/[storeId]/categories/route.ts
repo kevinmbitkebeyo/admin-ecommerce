@@ -21,9 +21,9 @@ export async function POST(
     if (!name) {
       return new NextResponse("Name is required", { status: 400 });
     }
-
+    
     if (!billboardId) {
-      return new NextResponse("billboardId URL is required", { status: 400 });
+      return new NextResponse("Billboard ID is required", { status: 400 });
     }
 
     if (!params.storeId) {
@@ -65,7 +65,7 @@ export async function GET(
       return new NextResponse("Store id is required", { status: 400 });
     }
 
-    const categories = await prismadb.billboard.findMany({
+    const categories = await prismadb.category.findMany({
       where: {
         storeId: params.storeId
       }
@@ -73,7 +73,7 @@ export async function GET(
   
     return NextResponse.json(categories);
   } catch (error) {
-    console.log('[CATEGORIES_POST]', error);
+    console.log('[CATEGORIES_GET]', error);
     return new NextResponse("Internal error", { status: 500 });
   }
 };
